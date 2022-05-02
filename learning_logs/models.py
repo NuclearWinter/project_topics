@@ -14,7 +14,7 @@ class Topic(models.Model):
 class Entry(models.Model):
     """Информация, изученная пользователем по теме"""
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    text = models.TextField
+    text = models.TextField()
     data_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -24,4 +24,3 @@ class Entry(models.Model):
         """Возвращает строковое представление модели"""
         # return f"{self.text[:50]}..."
         return f"{str(self.text)[:50]}..."
-
