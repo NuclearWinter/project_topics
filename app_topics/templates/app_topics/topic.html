@@ -1,4 +1,4 @@
-{% extends 'learning_logs/base.html' %}
+{% extends 'app_topics/base.html' %}
 
 {% block page_header %}
   <h3>{{ topic }}</h3>
@@ -6,7 +6,7 @@
 
 {% block content %}
   <p>
-    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+    <a href="{% url 'app_topics:new_entry' topic.id %}">Add new entry</a>
   </p>
 
   <ul>
@@ -14,7 +14,7 @@
     <div class="card mb-3">
       <h4 class="card-header">
         {{ entry.date_added|date:'M d, Y H:i' }}
-        <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
+        <small><a href="{% url 'app_topics:edit_entry' entry.id %}">
             edit entry</a></small>
       </h4>
       <div class="card-body">

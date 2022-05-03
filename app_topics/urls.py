@@ -1,9 +1,9 @@
-"""Определяел схемы URL для learning_logs."""
+"""Определяел схемы URL для app_topics."""
 
 from django.urls import path
 from . import views
 
-app_name = 'learning_logs'
+app_name = 'app_topics'
 urlpatterns = [
     # Домашняя страница
     path('', views.index, name='index'),

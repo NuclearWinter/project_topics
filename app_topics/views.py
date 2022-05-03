@@ -8,14 +8,14 @@ from .forms import TopicForm, EntryForm
 
 def index(request):
     """Домашняя страница приложения Learing Log"""
-    return render(request, 'learning_logs/index.html')
+    return render(request, 'app_topics/index.html')
 
 @login_required
 def topics(request):
     """"Выводит список тем"""
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {'topics': topics}
-    return render(request, 'learning_logs/topics.html', context)
+    return render(request, 'app_topics/topics.html', context)
 
 @login_required
 def topic(request, topic_id):
@@ -26,7 +26,7 @@ def topic(request, topic_id):
 
     entries = topic.entry_set.order_by('-data_added')
     context = {'topic': topic, 'entries': entries}
-    return render(request, 'learning_logs/topic.html', context)
+    return render(request, 'app_topics/topic.html', context)
 
 
 def check_topic_owner(topic, current_user):
@@ -47,11 +47,11 @@ def new_topic(request):
             new_topic = form.save(commit=False)
             new_topic.owner = request.user
             new_topic.save()
-            return redirect('learning_logs:topics')
+            return redirect('app_topics:topics')
 
     # Вывести пустую или недействительную форму
     context = {'form': form}
-    return render(request, 'learning_logs/new_topic.html', context)
+    return render(request, 'app_topics/new_topic.html', context)
 
 @login_required
 def new_entry(request, topic_id):
@@ -68,11 +68,11 @@ def new_entry(request, topic_id):
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
-            return redirect('learning_logs:topic', topic_id)
+            return redirect('app_topics:topic', topic_id)
 
     # Вывести пустую или недействительную форму
     context = {'topic': topic, 'form': form}
-    return render(request, 'learning_logs/new_entry.html', context)
+    return render(request, 'app_topics/new_entry.html', context)
 
 @login_required
 def edit_entry(request, entry_id):
@@ -89,11 +89,11 @@ def edit_entry(request, entry_id):
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('learning_logs:topic', topic.id)
+            return redirect('app_topics:topic', topic.id)
 
     context = {
         'entry': entry,
         'topic': topic,
         'form': form,
     }
-    return render(request, 'learning_logs/edit_entry.html', context)
+    return render(request, 'app_topics/edit_entry.html', context)
